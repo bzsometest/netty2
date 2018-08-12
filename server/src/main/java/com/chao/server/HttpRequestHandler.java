@@ -32,6 +32,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             // ctx.close();
         } else {
             System.out.println("连接成功：" + user);
+
         }
     }
 

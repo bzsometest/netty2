@@ -1,4 +1,4 @@
-package com.chao.utils;
+package com.chao.server.channel;
 
 import com.chao.domian.MyMessage;
 import com.chao.domian.UserManager;
@@ -20,16 +20,17 @@ public class ChannelManager {
         map.put(username, channel);
     }
 
-    public static void sendToUser(String username, MyMessage myMessage) {
-        Channel channel = map.get(username);
-        switch (UserManager.getNetType(username)) {
-            case UserManager.NET_TYPE_CHAT:
-                channel.writeAndFlush(myMessage);
-                break;
-            case UserManager.NET_TYPE_WEBSOCKET:
-                String json = new Gson().toJson(myMessage);
-                channel.writeAndFlush(new TextWebSocketFrame(json));
-                break;
-        }
+    public static Channel getChannel(String username) {
+        return map.get(username);
     }
+
+    public static String getUsername(Channel channel) {
+        for (String key : map.keySet()) {
+            if (channel == map.get(key)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
 }

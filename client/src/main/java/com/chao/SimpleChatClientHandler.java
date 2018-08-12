@@ -1,9 +1,12 @@
 package com.chao;
 
 import com.chao.domian.MyMessage;
+import com.chao.domian.UserManager;
+import com.chao.domian.UserToken;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 /**
  * 客户端 channel
@@ -13,6 +16,7 @@ import io.netty.channel.SimpleChannelInboundHandler;
  */
 public class SimpleChatClientHandler extends SimpleChannelInboundHandler<MyMessage> {
 
+    private final static String TAG = "TextWebSocketHandler:";
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
@@ -22,13 +26,14 @@ public class SimpleChatClientHandler extends SimpleChannelInboundHandler<MyMessa
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-        System.out.println("SimpleChatClient:在线");
+        System.out.println(TAG + "SimpleChatClient:在线");
         super.channelActive(ctx);
     }
 
+
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyMessage myMessage) throws Exception {
+        System.out.println(TAG + "channelRead0");
         System.out.println(myMessage.getMsg_text());
     }
 }

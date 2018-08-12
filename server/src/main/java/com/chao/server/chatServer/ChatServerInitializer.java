@@ -28,7 +28,6 @@ public class ChatServerInitializer extends
         pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
         pipeline.addLast(new ChunkedWriteHandler());
 
-        pipeline.addLast(new HttpRequestHandler());
         pipeline.addLast(new ChatServerHandler());
 
     }

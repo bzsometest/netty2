@@ -14,20 +14,20 @@ import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * 客户端 ChannelInitializer
- * 
+ *
  * @author waylau.com
  * @date 2015-2-26
  */
 public class SimpleChatClientInitializer extends ChannelInitializer<SocketChannel> {
- 
-	@Override
+
+    @Override
     public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-        
-        pipeline.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-        pipeline.addLast("encoder", new ObjectEncoder());
-        pipeline.addLast("decoder", new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
 
-        pipeline.addLast("handler", new SimpleChatClientHandler());
+        pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+        pipeline.addLast(new ObjectEncoder());
+        pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+
+        pipeline.addLast(new SimpleChatClientHandler());
     }
 }

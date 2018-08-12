@@ -31,7 +31,7 @@ public class WebSocketServerInitializer extends
         pipeline.addLast(new ChunkedWriteHandler());
         pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
 
-        pipeline.addLast(new HttpRequestHandler());
+      //  pipeline.addLast(new HttpRequestHandler());
         pipeline.addLast(new WebSocketServerHandler());
 
     }

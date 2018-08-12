@@ -1,8 +1,8 @@
 package com.chao.domian;
 
-class User {
-    String username;
-    String token;
+public class UserToken extends MyMessage {
+    private String username;
+    private String token;
 
     public String getUsername() {
         return username;
