@@ -16,7 +16,7 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
  */
 public class SimpleChatClientHandler extends SimpleChannelInboundHandler<MyMessage> {
 
-    private final static String TAG = "TextWebSocketHandler:";
+    private final static String TAG = "SimpleChatClientHandler:";
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
@@ -34,6 +34,6 @@ public class SimpleChatClientHandler extends SimpleChannelInboundHandler<MyMessa
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyMessage myMessage) throws Exception {
         System.out.println(TAG + "channelRead0");
-        System.out.println(myMessage.getMsg_text());
+        System.out.println(myMessage.getSend_user() + "," + myMessage.getMsg_text());
     }
 }

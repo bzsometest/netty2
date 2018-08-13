@@ -1,7 +1,6 @@
 package com.chao.server.chatServer;
 
 
-import com.chao.server.HttpRequestHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -28,6 +27,8 @@ public class ChatServerInitializer extends
         pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
         pipeline.addLast(new ChunkedWriteHandler());
 
+
+        pipeline.addLast(new UserTokenHandler());
         pipeline.addLast(new ChatServerHandler());
 
     }

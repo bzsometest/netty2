@@ -1,6 +1,7 @@
 package com.chao;
 
 import com.chao.domian.MyMessage;
+import com.chao.domian.UserToken;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;
@@ -43,10 +44,13 @@ public class SimpleChatClient {
                     .option(ChannelOption.TCP_NODELAY, true)
                     .handler(new SimpleChatClientInitializer());
             Channel channel = bootstrap.connect(host, port).sync().channel();
+            sendToken(channel);
+
             BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+
+
             MyMessage myMessage = new MyMessage();
-            myMessage.setReceive_user("chao");
-            myMessage.setSend_user("admin");
+            myMessage.setReceive_user("admin");
 
             while (true) {
                 myMessage.setMsg_text(in.readLine());
@@ -59,6 +63,13 @@ public class SimpleChatClient {
             group.shutdownGracefully();
         }
 
+    }
+
+    public static void sendToken(Channel channel) {
+        UserToken userToken = new UserToken();
+        userToken.setToken("123456");
+        userToken.setUsername("chao");
+        channel.writeAndFlush(userToken);
     }
 
 }

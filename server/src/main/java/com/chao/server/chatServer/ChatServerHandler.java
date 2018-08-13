@@ -4,6 +4,7 @@ import com.chao.domian.MyMessage;
 import com.chao.domian.UserManager;
 import com.chao.domian.UserToken;
 import com.chao.server.channel.ChannelManager;
+import com.chao.server.channel.ChannelMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -28,22 +29,12 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<MyMessage> { 
         super.handlerAdded(ctx);
         Channel incoming = ctx.channel();
         System.out.println(TAG + "handlerAdded - " + incoming.remoteAddress() + " 加入");
-
-        MyMessage myMessage = new MyMessage();
-        myMessage.setMsg_text("欢迎加入a");
-        ctx.channel().writeAndFlush(myMessage);
-
     }
 
     @Override
     public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
         Channel incoming = ctx.channel();
 
-        // Broadcast a message to multiple Channels
-        // channels.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " 离开\n");
-
-        // A closed Channel is automatically removed from ChannelGroup,
-        // so there is no need to do "channels.remove(ctx.channel());"
     }
 
 
@@ -52,11 +43,6 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<MyMessage> { 
         super.channelActive(ctx);
         Channel incoming = ctx.channel();
         System.out.println(TAG + "channelActive - " + incoming.remoteAddress() + " 在线");
-
-
-        MyMessage myMessage = new MyMessage();
-        myMessage.setMsg_text("欢迎在线a");
-        ctx.channel().writeAndFlush(myMessage);
     }
 
     @Override
@@ -78,23 +64,13 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<MyMessage> { 
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         System.out.println(TAG + "channelRead Object");
         super.channelRead(ctx, msg);
-        if (msg instanceof UserToken) {
-            System.out.println("UserToken");
-            UserToken userToken = (UserToken) msg;
-            String username = UserManager.getUser(userToken.getToken());
-            if (username != null) {
-                System.out.println("token 口令验证通过！");
-                ChannelManager.add(username, ctx.channel());
-            } else {
-                System.out.println("口令验证失败!");
-                ctx.close();
-            }
-        }
+
     }
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyMessage myMessage) throws Exception {
         System.out.println(TAG + "channelRead0:" + myMessage.getMsg_text());
+        ChannelMessage.handlerMessage(channelHandlerContext.channel(), myMessage);
     }
 
     @Override

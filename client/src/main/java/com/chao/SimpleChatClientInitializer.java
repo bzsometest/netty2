@@ -10,6 +10,7 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.stream.ChunkedWriteHandler;
 
 
 /**
@@ -24,10 +25,15 @@ public class SimpleChatClientInitializer extends ChannelInitializer<SocketChanne
     public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
-        pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+        //能够处理自定义消息
         pipeline.addLast(new ObjectEncoder());
         pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+        pipeline.addLast(new ChunkedWriteHandler());
 
+      /*  pipeline.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+        pipeline.addLast(new ObjectEncoder());
+        pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
+*/
         pipeline.addLast(new SimpleChatClientHandler());
     }
 }

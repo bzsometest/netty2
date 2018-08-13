@@ -1,7 +1,6 @@
 package com.chao.server.webServer;
 
 
-import com.chao.server.HttpRequestHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -29,9 +28,10 @@ public class WebSocketServerInitializer extends
         pipeline.addLast(new HttpServerCodec());    //将请求和应答消息编码或解码为HTTP消息
         pipeline.addLast(new HttpObjectAggregator(64 * 1024)); //将HTTP消息的多个部分组合成一条完整的HTTP消息
         pipeline.addLast(new ChunkedWriteHandler());
-        pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
 
-      //  pipeline.addLast(new HttpRequestHandler());
+        pipeline.addLast(new HttpRequestHandler());
+
+        pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
         pipeline.addLast(new WebSocketServerHandler());
 
     }

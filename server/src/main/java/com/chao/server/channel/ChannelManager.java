@@ -17,6 +17,8 @@ public class ChannelManager {
     private static Map<String, Channel> map = new HashMap<>();
 
     public static void add(String username, Channel channel) {
+
+        System.out.println("添加用户通道：" + username);
         map.put(username, channel);
     }
 
@@ -33,4 +35,12 @@ public class ChannelManager {
         return null;
     }
 
+    public static void test() {
+        System.out.println("map长度：" + map.size());
+        if (map.get("chao2") == map.get("admin")) {
+            System.out.println("同一个channel");
+        } else {
+            System.out.println("不是一个channel");
+        }
+    }
 }

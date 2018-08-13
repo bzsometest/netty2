@@ -6,8 +6,8 @@ import java.util.Map;
 public class UserManager {
     private static Map<String, String> users = new HashMap();
     private static Map<String, Integer> userNetType = new HashMap();
-    public static final int NET_TYPE_WEBSOCKET = 0x1;
 
+    public static final int NET_TYPE_WEBSOCKET = 0x1;
     public static final int NET_TYPE_CHAT = 0x2;
 
     static {
@@ -34,9 +34,20 @@ public class UserManager {
         return null;
     }
 
-    public static int getNetType(String username) {
-        return userNetType.get(username);
+    public static void setUserNetType(String username, int netType) {
+        userNetType.put(username, netType);
     }
 
+    public static int getNetType(String username) {
+        System.out.println(userNetType);
+        if (userNetType != null) {
+            System.out.println("userNetType have");
+            int netType = userNetType.get(username);
+            return netType;
+        } else {
+            System.out.println("userNetType null");
+        }
+        return UserManager.NET_TYPE_WEBSOCKET;
+    }
 }
 
