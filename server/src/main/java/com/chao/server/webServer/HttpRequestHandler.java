@@ -37,8 +37,8 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             logger.info("用户成功登陆：{},来自{}", username, "WebSocket");
 
             ctx.channel().writeAndFlush(new TextWebSocketFrame("用户成功登陆：" + username));
-            ChannelManager.add(username, ctx.channel());
-            UserManager.setUserNetType(username, UserManager.NET_TYPE_WEBSOCKET);
+            ChannelManager.add(username, ctx.channel(), ChannelManager.NET_TYPE_WEB_SOCKET);
+
 
         } else {
             logger.info("用户口令不正确，来自{}", username, "WebSocket");

@@ -4,13 +4,9 @@ import com.chao.domian.MessageManager;
 import com.chao.domian.MyMessage;
 import com.chao.server.channel.ChannelManager;
 import com.chao.server.channel.ChannelMessage;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,11 +19,6 @@ import org.slf4j.LoggerFactory;
 public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> { // (1)
 
     private final static Logger logger = LoggerFactory.getLogger(ChannelManager.class);
-    /**
-     * A thread-safe Set  Using ChannelGroup, you can categorize Channels into a meaningful group.
-     * A closed Channel is automatically removed from the collection,
-     */
-    public static ChannelGroup channels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
@@ -59,18 +50,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
         logger.info("掉线：{}", ctx.channel().remoteAddress());
     }
 
-
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object msg) throws Exception {
-        //  super.userEventTriggered(ctx, msg);
         logger.info("serEventTriggered");
         super.channelRead(ctx, msg);
-
-    }
-
-    @Override
-    public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {  // (3)
-        Channel incoming = ctx.channel();
     }
 
     @Override

@@ -8,6 +8,15 @@ public class MyMessage implements Serializable {
     private String receive_user;//接收者
     private String msg_text;//消息内容
 
+    public MyMessage() {
+    }
+
+    public MyMessage(String send_user, String receive_user, String msg_text) {
+        this.send_user = send_user;
+        this.receive_user = receive_user;
+        this.msg_text = msg_text;
+    }
+
     public String getSend_user() {
         return send_user;
     }

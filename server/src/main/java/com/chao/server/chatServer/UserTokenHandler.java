@@ -18,23 +18,15 @@ public class UserTokenHandler extends SimpleChannelInboundHandler<UserToken> {
         String token = userToken.getToken();
         String username = UserManager.getUser(token);
         if (username != null) {
-            logger.info("用户成功登陆：{},来自{}", username, "ChatClient");
+            logger.info("用户成功登陆：{},来自：{}", username, "ChatClient");
 
-            MyMessage myMessage = new MyMessage();
-            myMessage.setSend_user(username);
-            myMessage.setMsg_text("登录成功！");
-
-            ctx.channel().writeAndFlush(myMessage);
-            ChannelManager.add(username, ctx.channel());
-            UserManager.setUserNetType(username, UserManager.NET_TYPE_CHAT);
+            ctx.channel().writeAndFlush(new MyMessage("system", "", "登录成功！"));
+            ChannelManager.add(username, ctx.channel(), ChannelManager.NET_TYPE_CHAT_CLIENT);
 
         } else {
             logger.info("用户口令不正确，来自{}", username, "ChatClient");
 
-            MyMessage myMessage = new MyMessage();
-            myMessage.setSend_user("system");
-            myMessage.setMsg_text("口令不正确！！");
-            ctx.channel().writeAndFlush(myMessage);
+            ctx.channel().writeAndFlush(new MyMessage("system", "", "口令不正确！！"));
             ctx.close();
         }
     }

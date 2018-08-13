@@ -8,6 +8,8 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,6 +22,8 @@ import java.io.InputStreamReader;
  * @date 2015-2-26
  */
 public class SimpleChatClient {
+
+    private final static Logger logger = LoggerFactory.getLogger(SimpleChatClient.class);
 
     public static void main(String[] args) throws Exception {
         new SimpleChatClient("localhost", 9902).run();
