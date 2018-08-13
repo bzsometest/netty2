@@ -5,20 +5,22 @@ import com.chao.domian.UserManager;
 import com.google.gson.Gson;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class ChannelMessage {
+    private final static Logger logger = LoggerFactory.getLogger(ChannelMessage.class);
     /**
      * @param myMessage 发送的消息
      */
     public static void sendMessage(MyMessage myMessage) {
         Channel channelReceive = ChannelManager.getChannel(myMessage.getReceive_user());
         if (channelReceive == null || !channelReceive.isOpen()) {
-            System.out.println("接收者用户通道关闭：" + myMessage.getReceive_user());
+            logger.info("接收者用户通道关闭：{}",myMessage.getReceive_user());
             return;
         }
         int netType = UserManager.getNetType(myMessage.getReceive_user());
-        System.out.println("netType:" + netType);
         switch (netType) {
             case UserManager.NET_TYPE_CHAT:
                 channelReceive.writeAndFlush(myMessage);
@@ -42,10 +44,10 @@ public class ChannelMessage {
 
         String receive_user = myMessage.getReceive_user().trim();
         if (receive_user == null || receive_user.length() < 1) {
-            System.out.println("无法找到接收者信息！");
+            logger.info("无法从channel中找到接收者信息！");
             return;
         } else {
-            System.out.println("发送者：" + send_user + "，接收者：" + receive_user);
+            logger.info("发送者：{}，接收者：{}" ,send_user,receive_user);
             //正确的发送message信息
             myMessage.setSend_user(send_user);
             sendMessage(myMessage);

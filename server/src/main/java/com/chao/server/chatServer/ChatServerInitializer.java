@@ -15,18 +15,17 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  * @author waylau.com
  * @date 2015-2-26
  */
-public class ChatServerInitializer extends
-        ChannelInitializer<SocketChannel> {
+public class ChatServerInitializer extends ChannelInitializer<SocketChannel> {
 
     @Override
     public void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
 
+
         //能够处理自定义消息
         pipeline.addLast(new ObjectEncoder());
         pipeline.addLast(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.cacheDisabled(null)));
         pipeline.addLast(new ChunkedWriteHandler());
-
 
         pipeline.addLast(new UserTokenHandler());
         pipeline.addLast(new ChatServerHandler());

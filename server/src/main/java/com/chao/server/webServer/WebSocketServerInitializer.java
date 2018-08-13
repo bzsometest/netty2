@@ -1,6 +1,6 @@
 package com.chao.server.webServer;
 
-
+import com.chao.server.channel.ChannelManager;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -8,6 +8,8 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 服务端 ChannelInitializer
@@ -15,9 +17,9 @@ import io.netty.handler.stream.ChunkedWriteHandler;
  * @author waylau.com
  * @date 2015-2-26
  */
-public class WebSocketServerInitializer extends
-        ChannelInitializer<SocketChannel> {
+public class WebSocketServerInitializer extends ChannelInitializer<SocketChannel> {
 
+    private final static Logger logger = LoggerFactory.getLogger(ChannelManager.class);
 
     /*n能够处理什么数据和顺序有关*/
     @Override

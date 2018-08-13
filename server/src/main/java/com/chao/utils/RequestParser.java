@@ -6,10 +6,7 @@ import io.netty.handler.codec.http.QueryStringDecoder;
 import io.netty.handler.codec.http.multipart.*;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * HTTP请求参数解析器, 支持GET, POST

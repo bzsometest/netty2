@@ -1,12 +1,10 @@
 package com.chao;
 
 import com.chao.domian.MyMessage;
-import com.chao.domian.UserManager;
-import com.chao.domian.UserToken;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 客户端 channel
@@ -16,24 +14,30 @@ import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
  */
 public class SimpleChatClientHandler extends SimpleChannelInboundHandler<MyMessage> {
 
-    private final static String TAG = "SimpleChatClientHandler:";
+    private final static Logger logger = LoggerFactory.getLogger(SimpleChatClientHandler.class);
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception { // (6)
-        Channel incoming = ctx.channel();
-        System.out.println("SimpleChatClient:" + incoming.remoteAddress() + "掉线");
+        logger.info("已掉线！");
     }
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println(TAG + "SimpleChatClient:在线");
+        logger.info("channelActive");
         super.channelActive(ctx);
     }
 
 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyMessage myMessage) throws Exception {
-        System.out.println(TAG + "channelRead0");
-        System.out.println(myMessage.getSend_user() + "," + myMessage.getMsg_text());
+        logger.info("收到消息：{}" + myMessage.getMsg_text());
+    }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+        logger.info("异常，关闭连接", ctx.channel().remoteAddress());
+        // 当出现异常就关闭连接
+        cause.printStackTrace();
+        ctx.close();
     }
 }

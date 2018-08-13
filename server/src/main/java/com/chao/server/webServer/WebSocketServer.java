@@ -1,11 +1,14 @@
 package com.chao.server.webServer;
 
+import com.chao.server.channel.ChannelManager;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 简单聊天服务器-服务端
@@ -15,6 +18,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class WebSocketServer {
 
+    private final static Logger logger = LoggerFactory.getLogger(ChannelManager.class);
     private int port;
 
     public WebSocketServer(int port) {
@@ -33,7 +37,7 @@ public class WebSocketServer {
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            System.out.println("WebSocketServer 启动了:" + port);
+            logger.info("WebSocketServer 启动了:{}", port);
 
             // 绑定端口，开始接收进来的连接
             ChannelFuture f = bootstrap.bind(port).sync(); // (7)
@@ -46,7 +50,7 @@ public class WebSocketServer {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
 
-            System.out.println("WebSocketServer 关闭了");
+            logger.info("WebSocketServer 关闭了:{}", port);
         }
     }
 
