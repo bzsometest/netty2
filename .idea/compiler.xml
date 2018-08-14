@@ -6,9 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="client" />
-        <module name="server" />
+        <module name="server-netty" />
+        <module name="server-tomcat" />
+        <module name="user-browser" />
+        <module name="user-client" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="netty2" target="1.7" />
+      <module name="server-netty" target="1.7" />
+      <module name="server-tomcat" target="1.7" />
+      <module name="user-browser" target="1.7" />
+      <module name="user-client" target="1.7" />
+    </bytecodeTargetLevel>
   </component>
 </project>
