@@ -10,6 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>server-netty</artifactId>
+    <packaging>jar</packaging>
 
     <name>server</name>
     <!-- FIXME change it to the project's website -->
