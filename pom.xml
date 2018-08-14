@@ -15,5 +15,5 @@
         <module>user-client</module>
         <module>user-browser</module>
     </modules>
-    
+
 </project>
