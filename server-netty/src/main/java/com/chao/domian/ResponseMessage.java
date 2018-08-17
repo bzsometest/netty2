@@ -1,4 +1,4 @@
-package com.chao.bean;
+package com.chao.domian;
 
 import java.io.Serializable;
 import java.util.HashMap;

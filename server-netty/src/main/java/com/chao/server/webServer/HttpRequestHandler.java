@@ -2,6 +2,8 @@ package com.chao.server.webServer;
 
 import com.chao.domian.UserManager;
 import com.chao.server.channel.ChannelManager;
+import com.chao.service.MyBack;
+import com.chao.service.UserService;
 import com.chao.utils.RequestParser;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -17,7 +19,7 @@ import org.slf4j.LoggerFactory;
  * @date 2015-3-26
  */
 public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequest> { //1
-
+    private static UserService userService = new UserService();
     private final static Logger logger = LoggerFactory.getLogger(ChannelManager.class);
 
     @Override
@@ -27,7 +29,33 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
     }
 
     @Override
-    public void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+    public void channelRead0(final ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+        logger.info("channelRead");
+        ctx.fireChannelRead(request.retain());                  //2
+        RequestParser requestParser = new RequestParser(request);
+        final String token = requestParser.getRequestParams().get("token");
+
+        final ChannelHandlerContext ctx2 = ctx;
+        userService.getUser(token, new MyBack() {
+            @Override
+            public void error() {
+                logger.info("用户口令不正确，来自{}", "WebSocket");
+                ctx.channel().writeAndFlush(new TextWebSocketFrame("用户口令不正确！连接关闭。"));
+                ctx.close();
+            }
+
+            @Override
+            public void successs() {
+                String username = UserManager.getUser(token);
+                logger.info("用户成功登陆：{},来自{}", username, "WebSocket");
+
+                ctx2.channel().writeAndFlush(new TextWebSocketFrame("用户成功登陆：" + username));
+                ChannelManager.add(username, ctx.channel(), ChannelManager.NET_TYPE_WEB_SOCKET);
+            }
+        });
+    }
+
+    public void channelRead00(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
         logger.info("channelRead");
         ctx.fireChannelRead(request.retain());                  //2
         RequestParser requestParser = new RequestParser(request);
@@ -46,6 +74,5 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             ctx.close();
         }
     }
-
 
 }

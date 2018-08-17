@@ -8,16 +8,10 @@ public class UserManager {
 
     static {
         users.put("chao", "123456");
-        users.put("chao2", "chao123");
-        users.put("admin", "admin123");
     }
 
     public static void add(String username, String token) {
         users.put(username, token);
-    }
-
-    public static String getToken(String username) {
-        return users.get(username);
     }
 
     public static String getUser(String token) {
