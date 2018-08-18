@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>首页[spring-websocket demo]</title>
+    <link rel="stylesheet" href="css/message.css"/>
+    <script type="text/javascript" src="static/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="static/sockjs.min.js"></script>
+    <script type="text/javascript" src="js/message.js"></script>
+</head>
+
+<body>
+<div id="message_div">
+    <ul></ul>
+</div>
+<div id="send_div">
+    <table>
+        <tr>
+            <td align="center">服务器地址:</td>
+            <td><input id="server_path" type="text" style="width: 220px;"/></td>
+            <td colspan="2" align="center">
+                <button class="btn_address" onclick="set_path()">设置地址</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td align="center">token口令:</td>
+            <td><input id="token_text" type="text" style="width: 220px;"/></td>
+            <td colspan="2" align="center">
+                <button class="btn_token" onclick="set_token()">设置口令</button>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td align="right">接收用户:</td>
+            <td><input id="username" type="text" style="width: 300px;"/></td>
+        </tr>
+        <tr>
+            <td align="right">消息内容:</td>
+            <td><textarea id="msg_txt" style="width: 300px;"></textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button class="btn_send" onclick="send()">发送消息</button>
+            </td>
+        </tr>
+    </table>
+
+</div>
+</body>
+
+</html>

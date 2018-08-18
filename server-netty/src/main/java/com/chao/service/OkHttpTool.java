@@ -3,9 +3,6 @@ package com.chao.service;
 import com.chao.utils.Constant;
 import okhttp3.*;
 
-import java.io.IOException;
-import java.util.Map;
-
 public class OkHttpTool {
     public static void getUser(String token, Callback callback) {
         final Request.Builder builder = new Request.Builder().url(Constant.WEB_OAUTH+"/token/check");

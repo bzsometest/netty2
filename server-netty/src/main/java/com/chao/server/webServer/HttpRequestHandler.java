@@ -30,8 +30,11 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
     @Override
     public void channelRead0(final ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
-        logger.info("channelRead");
+        logger.info("channelRead0");
         ctx.fireChannelRead(request.retain());                  //2
+
+        ctx.channel().writeAndFlush(new TextWebSocketFrame("正在登录，请稍后..."));
+
         RequestParser requestParser = new RequestParser(request);
         final String token = requestParser.getRequestParams().get("token");
 
@@ -48,7 +51,6 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
             public void successs() {
                 String username = UserManager.getUser(token);
                 logger.info("用户成功登陆：{},来自{}", username, "WebSocket");
-
                 ctx2.channel().writeAndFlush(new TextWebSocketFrame("用户成功登陆：" + username));
                 ChannelManager.add(username, ctx.channel(), ChannelManager.NET_TYPE_WEB_SOCKET);
             }
