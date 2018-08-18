@@ -21,10 +21,10 @@ public class TokenController {
     @ResponseBody
     @RequestMapping(value = "/check")
     public ResponseMessage checkUser(@RequestHeader HttpHeaders headers) {
-        String token=headers.getFirst(Constants.AUTHORIZATION);
-        String username=JWTUtil.getUsername(token);
+        String token = headers.getFirst(Constants.AUTHORIZATION);
+        String username = JWTUtil.getUsername(token);
         UserBean user = userService.getUserByUsername(username);
-        return ResponseMessage.success().add("user", user);
+        return ResponseMessage.success().add("user", user).add("token", token);
     }
 
 }
