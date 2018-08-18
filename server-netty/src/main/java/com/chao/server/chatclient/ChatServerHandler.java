@@ -1,7 +1,7 @@
 package com.chao.server.chatclient;
 
 import com.chao.domain.MyMessage;
-import com.chao.server.channel.ChannelMessage;
+import com.chao.server.channel.MessageManager;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -58,7 +58,7 @@ public class ChatServerHandler extends SimpleChannelInboundHandler<MyMessage> { 
     @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, MyMessage myMessage) throws Exception {
         logger.info("收到消息：{}", myMessage.getMsg_text());
-        ChannelMessage.handlerMessage(channelHandlerContext.channel(), myMessage);
+        MessageManager.handlerMessage(channelHandlerContext.channel(), myMessage);
     }
 
     @Override

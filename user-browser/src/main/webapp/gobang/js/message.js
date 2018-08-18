@@ -1,5 +1,5 @@
 var PATH = "localhost:9901/ws";
-var TOKEN = "chao123";
+var TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1MzQ0OTg4OTcsInVzZXJuYW1lIjoiY2hhb2EifQ.aLAmGsIgSib0Cj1sgVt-OZlG-VMwGvcqT97t8y-_IfE";
 var message = {
 	send_user: "system",
 	receive_user: "",

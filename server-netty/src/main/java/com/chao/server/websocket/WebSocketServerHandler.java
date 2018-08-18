@@ -1,9 +1,8 @@
 package com.chao.server.websocket;
 
-import com.chao.domain.MessageManager;
 import com.chao.domain.MyMessage;
 import com.chao.server.channel.ChannelManager;
-import com.chao.server.channel.ChannelMessage;
+import com.chao.server.channel.MessageManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
@@ -34,10 +33,10 @@ public class WebSocketServerHandler extends SimpleChannelInboundHandler<TextWebS
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame textWebSocketFrame) throws Exception {
-        MyMessage myMessage = MessageManager.getToMessage(textWebSocketFrame.text());
+        MyMessage myMessage = MessageManager.getMessage(textWebSocketFrame.text());
 
         logger.info("收到消息：{}", myMessage.getMsg_text());
-        ChannelMessage.handlerMessage(ctx.channel(), myMessage);
+        MessageManager.handlerMessage(ctx.channel(), myMessage);
     }
 
     @Override

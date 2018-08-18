@@ -8,8 +8,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class ChannelMessage {
-    private final static Logger logger = LoggerFactory.getLogger(ChannelMessage.class);
+public class MessageManager {
+    private final static Logger logger = LoggerFactory.getLogger(MessageManager.class);
 
     /**
      * @param myMessage 向channel中发送消息
@@ -64,4 +64,8 @@ public class ChannelMessage {
         sendToMessage(channelReceive, myMessage);
     }
 
+    //将文本转换为对象
+    public static MyMessage getMessage(String text) {
+        return new Gson().fromJson(text, MyMessage.class);
+    }
 }

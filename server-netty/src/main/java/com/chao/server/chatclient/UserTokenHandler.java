@@ -23,17 +23,15 @@ public class UserTokenHandler extends SimpleChannelInboundHandler<UserToken> {
         logger.info("channelRead0");
         // ctx.fireChannelRead(userToken);                  //2
 
-        //   ctx.channel().writeAndFlush(new TextWebSocketFrame("正在登录，请稍后..."));
-
+        ctx.channel().writeAndFlush(new MyMessage("system", "", "正在登录，请稍后..."));
 
         final String token = userToken.getToken();
-
-        final ChannelHandlerContext ctx2 = ctx;
         userService.getUser(token, new MyBack() {
             @Override
             public void error() {
-                logger.info("用户口令不正确，来自{}", "ChatClient");
-                ctx.channel().writeAndFlush(new TextWebSocketFrame("用户口令不正确！连接关闭。"));
+                logger.info("用户口令不正确，来自{},用户口令{}", "ChatClient", token);
+
+                ctx.channel().writeAndFlush(new MyMessage("system", "", "口令不正确，请重新登录！！"));
                 ctx.close();
             }
 
@@ -41,7 +39,7 @@ public class UserTokenHandler extends SimpleChannelInboundHandler<UserToken> {
             public void successs() {
                 String username = UserManager.getUser(token);
                 logger.info("用户成功登陆：{},来自{}", username, "ChatClient");
-                ctx2.channel().writeAndFlush(new MyMessage("system", "", "认证成功！"));
+                ctx.channel().writeAndFlush(new MyMessage("system", "", "登录成功！欢迎:" + username));
                 ChannelManager.add(username, ctx.channel(), ChannelManager.NET_TYPE_CHAT_CLIENT);
             }
         });
