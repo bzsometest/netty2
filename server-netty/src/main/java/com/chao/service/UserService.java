@@ -1,13 +1,9 @@
 package com.chao.service;
 
-import com.alibaba.fastjson.JSON;
 import com.chao.domian.ResponseMessage;
 import com.chao.domian.UserBean;
 import com.chao.domian.UserManager;
-import com.chao.domian.UserToken;
-import com.chao.utils.Constant;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import okhttp3.*;
 import org.springframework.stereotype.Service;
 

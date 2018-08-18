@@ -4,6 +4,7 @@ import com.chao.bean.ResponseMessage;
 import com.chao.bean.UserBean;
 import com.chao.security.JWTUtil;
 import com.chao.service.UserService;
+import com.chao.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -24,7 +25,7 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseMessage getUser(@RequestHeader HttpHeaders headers) {
-        String token = headers.getFirst("Authorization");
+        String token = headers.getFirst(Constants.AUTHORIZATION);
         String username = JWTUtil.getUsername(token);
         UserBean user = userService.getUserByUsername(username);
         return ResponseMessage.success().add("user", user);
@@ -67,5 +68,4 @@ public class UserController {
             return ResponseMessage.fail().add("logout", "退出出现错误！");
         }
     }
-
 }

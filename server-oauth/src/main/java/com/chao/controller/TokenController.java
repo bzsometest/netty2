@@ -4,6 +4,7 @@ import com.chao.bean.ResponseMessage;
 import com.chao.bean.UserBean;
 import com.chao.security.JWTUtil;
 import com.chao.service.UserService;
+import com.chao.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,7 @@ public class TokenController {
     @ResponseBody
     @RequestMapping(value = "/check")
     public ResponseMessage checkUser(@RequestHeader HttpHeaders headers) {
-        String token=headers.getFirst("Authorization");
+        String token=headers.getFirst(Constants.AUTHORIZATION);
         String username=JWTUtil.getUsername(token);
         UserBean user = userService.getUserByUsername(username);
         return ResponseMessage.success().add("user", user);
