@@ -41,9 +41,9 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseMessage userLogin(String username, String password) {
-        userService.login(username, password);
+        UserBean userBean = userService.login(username, password);
         String token = JWTUtil.sign(username, password);
-        return ResponseMessage.success().add("token", token);
+        return ResponseMessage.success().add("token", token).add("user", userBean);
     }
 
     @ResponseBody
