@@ -1,6 +1,6 @@
-package com.chao.server.chatServer;
+package com.chao.server.chatclient;
 
-import com.chao.domian.MyMessage;
+import com.chao.domain.MyMessage;
 import com.chao.server.channel.ChannelMessage;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;

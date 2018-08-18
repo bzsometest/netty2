@@ -1,4 +1,4 @@
-package com.chao.domian;
+package com.chao.domain;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.chao.server.webServer;
+package com.chao.server.websocket;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;

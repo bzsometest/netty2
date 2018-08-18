@@ -5,7 +5,7 @@
 
 //服务器api接口地址
 var webServer = "http://localhost:8080/oauth";
-//var webServer = "http://gobang03.bzchao.com/server";
+//var websocket = "http://gobang03.bzchao.com/server";
 _settings = {
     gobangDown: "http://t.cn/RrXswvP",
     jdkDown: "http://down-www.newasp.net/pcdown/soft/yh/jre1.8x64.7z",

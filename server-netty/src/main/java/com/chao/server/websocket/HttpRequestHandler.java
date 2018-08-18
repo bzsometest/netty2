@@ -1,6 +1,6 @@
-package com.chao.server.webServer;
+package com.chao.server.websocket;
 
-import com.chao.domian.UserManager;
+import com.chao.domain.UserManager;
 import com.chao.server.channel.ChannelManager;
 import com.chao.service.MyBack;
 import com.chao.service.UserService;

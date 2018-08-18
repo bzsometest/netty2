@@ -1,11 +1,8 @@
-package com.chao.domian;
+package com.chao.domain;
 
 import java.io.Serializable;
 
-/**
- * 聊天信息
- */
-    public class MyMessage implements Serializable {
+public class MyMessage implements Serializable {
     private static final long serialVersionUID = 4228051882802183587L;
     private String send_user;//发信者
     private String receive_user;//接收者

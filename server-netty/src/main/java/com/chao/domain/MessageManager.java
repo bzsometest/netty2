@@ -1,4 +1,4 @@
-package com.chao.domian;
+package com.chao.domain;
 
 import com.google.gson.Gson;
 

@@ -1,6 +1,6 @@
 package com.chao;
 
-import com.chao.domian.MyMessage;
+import com.chao.domain.MyMessage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;

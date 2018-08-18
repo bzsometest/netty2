@@ -1,4 +1,4 @@
-package com.chao.domian;
+package com.chao.domain;
 
 public class UserToken extends MyMessage {
     private String username;

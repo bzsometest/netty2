@@ -1,6 +1,5 @@
 package com.chao.server.channel;
 
-import com.chao.domian.UserManager;
 import io.netty.channel.Channel;
 
 import java.util.HashMap;

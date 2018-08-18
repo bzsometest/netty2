@@ -1,4 +1,4 @@
-package com.chao.server.webServer;
+package com.chao.server.chatclient;
 
 import com.chao.server.channel.ChannelManager;
 import io.netty.bootstrap.ServerBootstrap;
@@ -16,12 +16,12 @@ import org.slf4j.LoggerFactory;
  * @author waylau.com
  * @date 2015-2-16
  */
-public class WebSocketServer {
-
+public class ChatServer {
     private final static Logger logger = LoggerFactory.getLogger(ChannelManager.class);
+
     private int port;
 
-    public WebSocketServer(int port) {
+    public ChatServer(int port) {
         this.port = port;
     }
 
@@ -33,11 +33,11 @@ public class WebSocketServer {
             ServerBootstrap bootstrap = new ServerBootstrap(); // (2)
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class) // (3)
-                    .childHandler(new WebSocketServerInitializer())  //(4)
+                    .childHandler(new ChatServerInitializer())  //(4)
                     .option(ChannelOption.SO_BACKLOG, 128)          // (5)
                     .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
 
-            logger.info("WebSocketServer 启动了:{}", port);
+            logger.info("ChatServer 启动了：{}", port);
 
             // 绑定端口，开始接收进来的连接
             ChannelFuture f = bootstrap.bind(port).sync(); // (7)
@@ -50,12 +50,12 @@ public class WebSocketServer {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();
 
-            logger.info("WebSocketServer 关闭了:{}", port);
+            logger.info("ChatServer 关闭了：{}", port);
         }
     }
 
     public static void main(String[] args) throws Exception {
-        new WebSocketServer(9901).run();
+        new ChatServer(9902).run();
 
     }
 }

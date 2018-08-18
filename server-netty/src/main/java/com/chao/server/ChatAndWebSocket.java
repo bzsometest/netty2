@@ -1,7 +1,7 @@
 package com.chao.server;
 
-import com.chao.server.chatServer.ChatServer;
-import com.chao.server.webServer.WebSocketServer;
+import com.chao.server.chatclient.ChatServer;
+import com.chao.server.websocket.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

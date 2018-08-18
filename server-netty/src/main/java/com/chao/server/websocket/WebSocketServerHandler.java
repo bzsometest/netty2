@@ -1,7 +1,7 @@
-package com.chao.server.webServer;
+package com.chao.server.websocket;
 
-import com.chao.domian.MessageManager;
-import com.chao.domian.MyMessage;
+import com.chao.domain.MessageManager;
+import com.chao.domain.MyMessage;
 import com.chao.server.channel.ChannelManager;
 import com.chao.server.channel.ChannelMessage;
 import io.netty.channel.ChannelHandlerContext;

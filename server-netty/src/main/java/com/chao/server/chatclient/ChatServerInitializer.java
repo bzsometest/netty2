@@ -1,4 +1,4 @@
-package com.chao.server.chatServer;
+package com.chao.server.chatclient;
 
 
 import io.netty.channel.ChannelInitializer;

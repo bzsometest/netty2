@@ -1,8 +1,8 @@
 package com.chao.service;
 
-import com.chao.domian.ResponseMessage;
-import com.chao.domian.UserBean;
-import com.chao.domian.UserManager;
+import com.chao.domain.ResponseMessage;
+import com.chao.domain.UserBean;
+import com.chao.domain.UserManager;
 import com.google.gson.Gson;
 import okhttp3.*;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.chao;
 
-import com.chao.domian.MyMessage;
-import com.chao.domian.UserToken;
+import com.chao.domain.MyMessage;
+import com.chao.domain.UserToken;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelOption;

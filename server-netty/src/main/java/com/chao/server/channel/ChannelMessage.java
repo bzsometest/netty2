@@ -1,6 +1,6 @@
 package com.chao.server.channel;
 
-import com.chao.domian.MyMessage;
+import com.chao.domain.MyMessage;
 import com.google.gson.Gson;
 import io.netty.channel.Channel;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
