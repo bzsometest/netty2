@@ -15,8 +15,8 @@ import java.util.Map;
 
 @Service
 public class UserService {
-    private final static Logger logger = LoggerFactory.getLogger(UserService.class);
 
+    private final static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     public void getUser(final String token, final MyBack back) {
         OkHttpTool.getUser(token, new Callback() {
@@ -31,8 +31,18 @@ public class UserService {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String str = response.body().string();
-                logger.info("netty服务器消息：{}", str);
-                ResponseMessage responseMessage = new Gson().fromJson(str, ResponseMessage.class);
+
+                ResponseMessage responseMessage = null;
+                try {
+                    responseMessage = new Gson().fromJson(str, ResponseMessage.class);
+                } catch (Exception e) {
+                    logger.info("接收服务器消息异常：{}", str);
+                    if (back != null) {
+                        back.error();
+                    }
+                    return;
+                }
+                logger.info("Oauth返回正常！");
                 if (responseMessage != null && responseMessage.getCode() == 200) {
                     Map<String, Object> map = responseMessage.getExtend();
                     Object object = map.get("user");
@@ -41,8 +51,8 @@ public class UserService {
                     UserManager.add(user.getUsername(), token);
                     if (back != null) {
                         back.successs();
-                        return;
                     }
+                    return;
                 }
                 back.error();
             }
