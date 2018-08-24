@@ -58,8 +58,12 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseMessage userRegister(UserBean user) {
-        String token = JWTUtil.sign(user.getUsername(), user.getPassword());
-        return ResponseMessage.success().add("token", token);
+        boolean is = userService.addUser(user);
+        if (is) {
+            String token = JWTUtil.sign(user.getUsername(), user.getPassword());
+            return ResponseMessage.success().add("token", token);
+        }
+        return ResponseMessage.fail().add("error", "注册失败，无法写入数据库！");
     }
 
     /**
