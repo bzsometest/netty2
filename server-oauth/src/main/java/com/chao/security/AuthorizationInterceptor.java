@@ -21,7 +21,6 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         Method method = handlerMethod.getMethod();
         //从header中得到token
         String authorization = request.getHeader(Constants.AUTHORIZATION);
-        System.out.println("authorization = " + authorization);
         //验证token
         String username = JWTUtil.getUsername(authorization);
         if (username != null) {

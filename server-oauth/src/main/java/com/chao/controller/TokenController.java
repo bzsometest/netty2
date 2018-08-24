@@ -23,6 +23,9 @@ public class TokenController {
     public ResponseMessage checkUser(@RequestHeader HttpHeaders headers) {
         String token = headers.getFirst(Constants.AUTHORIZATION);
         String username = JWTUtil.getUsername(token);
+        if (username == null) {
+            return ResponseMessage.fail().add("error", "口令验证失败!");
+        }
         UserBean user = userService.getUserByUsername(username);
         return ResponseMessage.success().add("user", user).add("token", token);
     }

@@ -4,9 +4,8 @@
  */
 
 //服务器api接口地址
-var api_path = "http://localhost:8080/oauth";
-var netty_path = "localhost:9901/ws";
-//var websocket = "http://gobang03.bzchao.com/server";
+var api_path = "http://gobang04.bzchao.com/oauth";
+var netty_path = "gobang04.bzchao.com:9901/ws";
 _settings = {
     gobangDown: "http://t.cn/RrXswvP",
     jdkDown: "http://down-www.newasp.net/pcdown/soft/yh/jre1.8x64.7z",

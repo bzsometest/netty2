@@ -63,7 +63,6 @@ public class UserService {
         UserBeanExample.Criteria criteria = userExample.createCriteria();
         criteria.andUsernameEqualTo(user.getUsername());
         int res = userBeanMapper.updateByExampleSelective(user, userExample);
-        System.out.println("updateUser 更新影响行：" + res);
         return res == 1;
     }
 

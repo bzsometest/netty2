@@ -1,14 +1,18 @@
-package com.chao.server;
+package com.chao;
 
 import com.chao.server.chatclient.ChatServer;
 import com.chao.server.websocket.WebSocketServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ChatAndWebSocket {
-    private final static Logger logger = LoggerFactory.getLogger(ChatAndWebSocket.class);
+public class NetttServer {
+    private final static Logger logger = LoggerFactory.getLogger(NetttServer.class);
 
     public static void main(String[] args) {
+        start();
+    }
+
+    public static void start() {
 
         new Thread() {
             @Override
@@ -30,6 +34,5 @@ public class ChatAndWebSocket {
                 }
             }
         }.start();
-
     }
 }

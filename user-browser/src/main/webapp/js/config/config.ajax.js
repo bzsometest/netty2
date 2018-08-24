@@ -27,5 +27,4 @@ $.ajaxSetup({
     headers: {
         Authorization: getCookie("token")
     }
-})
-;
+});

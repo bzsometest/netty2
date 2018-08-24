@@ -1,8 +1,6 @@
 package com.chao.bean;
 
-import java.io.Serializable;
-
-public class UserBean implements Serializable {
+public class UserBean {
     private Integer uid;
 
     private String username;

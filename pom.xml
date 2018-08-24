@@ -11,7 +11,6 @@
     <modules>
         <module>server-oauth</module>
         <module>server-netty</module>
-        <module>server-tomcat</module>
 
         <module>user-client</module>
         <module>user-browser</module>
