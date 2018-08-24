@@ -21,13 +21,13 @@ public class UserController {
 
     @Autowired
     UserService userService;
+    @Autowired
+    ControllerTools controllerTools;
 
     @ResponseBody
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseMessage getUser(@RequestHeader HttpHeaders headers) {
-        String token = headers.getFirst(Constants.AUTHORIZATION);
-        String username = JWTUtil.getUsername(token);
-        UserBean user = userService.getUserByUsername(username);
+        UserBean user = controllerTools.getUser(headers);
         return ResponseMessage.success().add("user", user);
     }
 
@@ -49,10 +49,15 @@ public class UserController {
         return ResponseMessage.success().add("token", token).add("user", userBean);
     }
 
+    /**
+     * 用户注册
+     *
+     * @param user
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseMessage userRegister(UserBean user) {
-        boolean isReg = userService.addUser(user);
         String token = JWTUtil.sign(user.getUsername(), user.getPassword());
         return ResponseMessage.success().add("token", token);
     }
@@ -70,5 +75,30 @@ public class UserController {
         } catch (Exception e) {
             return ResponseMessage.fail().add("logout", "退出出现错误！");
         }
+    }
+
+    /**
+     * * 更新用户信息
+     * <p>
+     * 如果直接发送ajax=PUT形式的请求,获取不到数据
+     * * 解决方案；
+     * * 我们要能支持直接发送PUT之类的请求还要封装请求体中的数据
+     * * 1、配置上HttpPutFormContentFilter；
+     * * 2、他的作用；将请求体中的数据解析包装成一个map。
+     * <p>
+     * * 此处需要权限，已过滤用户信息
+     *
+     * @param user
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    public ResponseMessage updateUser(UserBean user, @RequestHeader HttpHeaders headers) {
+        UserBean olderUser = controllerTools.getUser(headers);
+        user.setUsername(olderUser.getUsername());
+        userService.updateUserByUsername(user);
+        //从数据库中得到更新后的用户信息
+        UserBean newUser = userService.getUserByUsername(user.getUsername());
+        return new ResponseMessage().success().add("user", newUser);
     }
 }

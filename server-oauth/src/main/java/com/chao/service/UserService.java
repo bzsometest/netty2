@@ -3,9 +3,13 @@ package com.chao.service;
 import com.chao.bean.UserBean;
 import com.chao.bean.UserBeanExample;
 import com.chao.dao.UserBeanMapper;
+import com.chao.security.AuthorizationInterceptor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
 import java.util.List;
 
 @Service
@@ -13,6 +17,8 @@ public class UserService {
 
     @Autowired
     private UserBeanMapper userBeanMapper;
+
+    private final static Logger logger = LoggerFactory.getLogger(UserService.class);
 
     /**
      * 用户登录
@@ -45,6 +51,10 @@ public class UserService {
         UserBeanExample userExample = new UserBeanExample();
         UserBeanExample.Criteria criteria = userExample.createCriteria();
         criteria.andUsernameEqualTo(username);
+        if (userBeanMapper == null) {
+            logger.debug("userBeanMapper 注入失败！");
+            return null;
+        }
         List<UserBean> users = userBeanMapper.selectByExample(userExample);
         if (users == null || users.size() == 0) {
             return null;
@@ -93,7 +103,7 @@ public class UserService {
         if (user == null) {
             return false;
         }
-        String passMD5= DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
+        String passMD5 = DigestUtils.md5DigestAsHex(user.getPassword().getBytes());
         user.setPassword(passMD5);
         try {
             userBeanMapper.insertSelective(user);
