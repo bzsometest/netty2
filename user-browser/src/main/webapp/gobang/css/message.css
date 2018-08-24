@@ -2,7 +2,11 @@ body {
 	background: #E2E2E2;
 	font-size: 13.5px;
 }
-
+.box_message{
+	float: left;
+	margin: 24px auto;
+	width: 500px;
+}
 #message_div {
 	background: #5170ad;
 	width: 400px;
